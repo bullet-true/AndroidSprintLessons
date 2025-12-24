@@ -2,42 +2,30 @@ package com.zerocool.androidsprintlessons
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zerocool.androidsprintlessons.ui.theme.AndroidSprintLessonsTheme
-import com.zerocool.androidsprintlessons.ui.theme.subtitle
 
 
 class MainActivity : ComponentActivity() {
@@ -46,149 +34,38 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidSprintLessonsTheme {
-                Scaffold { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            //.background(Color.LightGray)
-                            .fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Greeting("Bender")
-                        Spacer(modifier = Modifier.height(30.dp))
-                        MainNavButton()
-                        Spacer(modifier = Modifier.height(30.dp))
-                        StartImageButton()
+                Scaffold(
+                    content = { innerPadding: PaddingValues ->
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize(),
+                        ) {
+                            MainCheckBox()
+                            Spacer(Modifier.height(50.dp))
+                            MainCheckBox()
+                        }
                     }
-                }
+                )
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Hello $name",
-            style = MaterialTheme.typography.headlineLarge
-        )
-        Text(
-            text = "Kill all humans!",
-            color = MaterialTheme.colorScheme.subtitle,
-            style = MaterialTheme.typography.headlineMedium,
-        )
-    }
-}
-
-@Composable
-fun StartImageButton() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            contentDescription = "",
-            painter = painterResource(R.drawable.mr_robot),
-            modifier = Modifier
-                //.alpha(0.8f)
-                .size(120.dp)
-                .shadow(10.dp, CircleShape, spotColor = Color.Blue)
-                .clip(CircleShape)
-                .clickable(
-                    onClick = {},
-                    indication = ripple(),
-                    interactionSource = remember { MutableInteractionSource() }
-                )
-        )
-        Text(
-            modifier = Modifier.padding(0.dp, 30.dp, 0.dp, 0.dp),
-            text = "Hey!",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.subtitle,
-        )
-    }
-}
-
-@Composable
-fun MainNavButton() {
-    Row(
-        modifier = Modifier.padding(5.dp)
-    ) {
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 5.dp)
-
-        ) {
-            Text(
-                text = "Уроки",
-                fontFamily = FontFamily(Font(R.font.gilroy_bold)),
-                //color = MaterialTheme.colorScheme.onBackground
-            )
-        }
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 5.dp)
-        ) {
-            Text(
-                text = "Тесты",
-                fontFamily = FontFamily(Font(R.font.gilroy_bold))
-            )
-        }
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 5.dp)
-        ) {
-            Text(
-                text = "Практика",
-                fontFamily = FontFamily(Font(R.font.gilroy_bold))
-            )
-        }
-    }
-}
 
 @Composable
 @Preview(showBackground = true)
-fun GreetingsPreview() {
-    Greeting("Bender")
-}
+fun MainCheckBox() {
+    var isChecked: Boolean by remember { mutableStateOf(true) }
 
-@Composable
-@Preview(showBackground = true)
-fun MainNavButtonPreviewLight() {
-    AndroidSprintLessonsTheme(
-        darkTheme = false
-    ) {
-        MainNavButton()
-    }
-
-}
-
-@Composable
-@Preview(showBackground = true)
-fun MainNavButtonPreviewDark() {
-    AndroidSprintLessonsTheme(
-        darkTheme = true
-    ) {
-        MainNavButton()
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun StartImageButtonPreview() {
-    StartImageButton()
+    Checkbox(
+        checked = isChecked,
+        onCheckedChange = { it ->
+            Log.i("!!!", "MainCheckBox: $it")
+            isChecked = it
+        },
+        modifier = Modifier.graphicsLayer(scaleX = 4f, scaleY = 4f)
+    )
 }
