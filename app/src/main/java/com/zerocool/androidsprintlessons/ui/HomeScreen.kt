@@ -47,7 +47,7 @@ fun HomeScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Greeting("Bender")
+                StudyAppHeader("Bender")
                 Spacer(modifier = Modifier.height(30.dp))
                 MainNavButton()
                 Spacer(modifier = Modifier.height(30.dp))
@@ -58,18 +58,21 @@ fun HomeScreen() {
 }
 
 @Composable
-fun Greeting(name: String) {
+fun StudyAppHeader(
+    title: String = "",
+    subtitle: String = "",
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Hello $name",
+            text = title,
             style = MaterialTheme.typography.headlineLarge
         )
         Text(
-            text = "Kill all humans!",
+            text = subtitle,
             color = MaterialTheme.colorScheme.subtitle,
             style = MaterialTheme.typography.headlineMedium,
         )
@@ -153,7 +156,7 @@ fun MainNavButton() {
 @Composable
 @Preview(showBackground = true)
 fun GreetingsPreview() {
-    Greeting("Bender")
+    StudyAppHeader("Bender")
 }
 
 @Composable

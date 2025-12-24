@@ -25,7 +25,12 @@ val Typography = Typography(
     headlineMedium = TextStyle(
         fontSize = 16.sp,
         fontFamily = FontFamily(Font(R.font.gilroy_medium))
+    ),
+    headlineSmall = TextStyle(
+        fontSize = 14.sp,
+        fontFamily = FontFamily(Font(R.font.gilroy_medium))
     )
+
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
